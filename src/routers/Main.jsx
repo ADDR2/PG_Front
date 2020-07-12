@@ -1,4 +1,3 @@
-/* 3rd party libraries */
 import React from 'react';
 import {
     BrowserRouter as Router,
@@ -6,19 +5,25 @@ import {
     Route
 } from "react-router-dom";
 
-/* Local libraries */
+// components
+import ConnectedRoute from '../components/ConnectedRoute/ConnectedRoute';
+
+// containers
 import Dashboard from '../containers/Dashboard';
 import NotFound from '../containers/NotFound';
 
-const MainRouter = () => {
-    return (
-        <Router>
-            <Switch>
-                <Route path="/" component={Dashboard} />
-                <Route path="*" component={NotFound} />
-            </Switch>
-        </Router>
-    );
-};
+const MainRouter = () => (
+    <Router>
+        <Switch>
+            <ConnectedRoute>
+                <Route path="/" component={ Dashboard } />
+            </ConnectedRoute>
+
+            <ConnectedRoute>
+                <Route path="*" component={ NotFound } />
+            </ConnectedRoute>
+        </Switch>
+    </Router>
+);
 
 export default MainRouter;
