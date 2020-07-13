@@ -10,13 +10,17 @@ export default class HttpService {
             { ...options, signal: controller.signal }
         );
 
-        if (!componentSignal) return request.then(result => result.json());
-
         const abortFunction = () => controller.abort();
         componentSignal && componentSignal.once('unMounted', abortFunction);
 
         return request
-            .then(result => result.json())
+            .then(result => {
+                if (result.status >= 400) {
+                    console.warn(result);
+                    throw new Error(`${result.url} responded with ${result.status}`);
+                }
+                return result.json();
+            })
             .catch(error => {
                 if (error.name === 'AbortError') {
                     console.warn('Request aborted');
@@ -24,7 +28,7 @@ export default class HttpService {
                 } else throw error;
             })
             .finally(() => {
-                componentSignal.removeListener('unMounted', abortFunction);
+                componentSignal && componentSignal.removeListener('unMounted', abortFunction);
             })
         ;
     }

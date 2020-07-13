@@ -21,9 +21,9 @@ export default componentSignal => async dispatch => {
 
         dispatch(update({ activities: mappedActivities }));
 
-        return true;
+        return { loaded: true, size: mappedActivities.length };
     } catch(error) {
         console.warn(error);
-        return false;
+        return { error: true };
     }
 };
