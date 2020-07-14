@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
 
 // components
 import ProgressSpinner from '../components/ProgressSpinner/ProgressSpinner';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowForward from '@material-ui/icons/ArrowForward';
+import SidePanel from '../components/SidePanel/SidePanel';
 
 // reducer methods
 import initFavorites from '../ducks/Favorites/methods/initFavorites';
@@ -19,7 +17,6 @@ import '../styles/Favorites.scss';
 
 const Favorites = ({ initFavorites, favoriteActivities }) => {
     const [ isLoading, setLoadingState ] = React.useState(false);
-    const history = useHistory();
 
     React.useEffect(
         () => {
@@ -47,45 +44,16 @@ const Favorites = ({ initFavorites, favoriteActivities }) => {
         [ initFavorites ]
     );
 
-    function closePanel() {
-        const bodyShadowElement = document.querySelector('.pg-body-shadow');
-        const favoritesContainerElement = document.querySelector('.pg-favorites-container');
-
-        bodyShadowElement.classList.remove('pg-body-shadow');
-        bodyShadowElement.classList.add('pg-body-no-shadow');
-
-        favoritesContainerElement.classList.remove('pg-favorites-container');
-        favoritesContainerElement.classList.add('pg-favorites-container-shutdown');
-
-        setTimeout(
-            () => history.replace('/activities'),
-            1000
-        );
-    }
-
     return (
-        <>
-            <div
-                className="pg-body-shadow"
-                onClick={closePanel}
-            />
-            <div className="pg-favorites-container">
-                <div className="pg-favorites-header">
-                    <IconButton
-                        className="pg-favorites-close-button"
-                        onClick={closePanel}
-                    >
-                        <ArrowForward className="pg-favorites-close-icon" />
-                    </IconButton>
-                    <h2 className="pg-favorites-title">Favorite Activities</h2>
-                </div>
-
-                { isLoading
-                    ? <ProgressSpinner size={100} className="pg-favorites-loader" />
-                    : <></>
-                }
-            </div>
-        </>
+        <SidePanel
+            title="Favorite Activities"
+            afterCloseRoute="/activities"
+        >
+            { isLoading
+                ? <ProgressSpinner size={100} className="pg-favorites-loader" />
+                : <></>
+            }
+        </SidePanel>
     );
 };
 

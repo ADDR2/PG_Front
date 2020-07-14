@@ -1,0 +1,87 @@
+@import '../../styles/colors';
+
+.pg-side-panel-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    & > .pg-side-panel-close-button {
+        margin: 0 1rem 0 0;
+        width: 50px;
+        height: 50px;
+
+        & .pg-side-panel-close-icon {
+            width: 38px;
+            height: 38px;
+        }
+    }
+}
+
+.pg-side-panel-title {
+    margin: 0;
+}
+
+.pg-side-panel-container {
+    padding: 30px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 20vw;
+    height: 100vh;
+    width: 80vw;
+    z-index: 31;
+    background-color: $app-conttent-background-color;
+    animation-name: showPanel;
+    animation-duration: 0.7s;
+    animation-direction: reverse;
+}
+
+.pg-side-panel-container-shutdown {
+    @extend .pg-side-panel-container;
+    left: 100vw;
+    animation-name: closePanel;
+    animation-duration: 0.7s;
+    animation-direction: normal;
+}
+
+.pg-body-shadow {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation-name: unFocusBody;
+    animation-duration: 0.5s;
+    animation-direction: reverse;
+}
+
+.pg-body-no-shadow {
+    @extend .pg-body-shadow;
+    background-color: rgba(0, 0, 0, 0);
+    animation-name: focusBody;
+    animation-duration: 0.5s;
+    animation-direction: normal;
+}
+
+@keyframes focusBody {
+    from   { background-color: rgba(0, 0, 0, 0.5) }
+    to     { background-color: rgba(0, 0, 0, 0) }
+}
+
+@keyframes unFocusBody {
+    from   { background-color: rgba(0, 0, 0, 0.5) }
+    to     { background-color: rgba(0, 0, 0, 0) }
+}
+
+@keyframes showPanel {
+    from   { left: 20vw; }
+    to     { left: 100vw; }
+}
+
+@keyframes closePanel {
+    from   { left: 20vw; }
+    to     { left: 100vw; }
+}
