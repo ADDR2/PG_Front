@@ -1,0 +1,8 @@
+@import './colors';
+
+.pg-dashboard-container {
+    padding: 30px;
+    height: calc(100vh - 70px - 60px);
+    overflow-y: auto;
+    background-color: $app-conttent-background-color;
+}

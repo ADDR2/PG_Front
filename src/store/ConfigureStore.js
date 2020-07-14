@@ -2,8 +2,13 @@
 import * as redux from "redux";
 import thunk from 'redux-thunk';
 
+// ducks
+import DashBoard from '../ducks/Dashboard/Dashboard.reducer';
+
 export const configure = (initialState = {}) => {
-	const reducer = redux.combineReducers({});
+	const reducer = redux.combineReducers({
+        DashBoard
+    });
 
 	const store = redux.createStore(
 		reducer,

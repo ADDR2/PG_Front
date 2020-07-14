@@ -1,0 +1,9 @@
+.pg-app-container {
+    overflow: hidden;
+
+    & .Toastify__toast {
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+}

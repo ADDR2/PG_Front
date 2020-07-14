@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 // components
-import ConnectedRoute from '../components/ConnectedRoute/ConnectedRoute';
+import ConnectedRoutes from '../components/ConnectedRoute/ConnectedRoute';
 
 // containers
 import Dashboard from '../containers/Dashboard';
@@ -15,13 +15,10 @@ import NotFound from '../containers/NotFound';
 const MainRouter = () => (
     <Router>
         <Switch>
-            <ConnectedRoute>
+            <ConnectedRoutes>
                 <Route path="/" component={ Dashboard } />
-            </ConnectedRoute>
-
-            <ConnectedRoute>
                 <Route path="*" component={ NotFound } />
-            </ConnectedRoute>
+            </ConnectedRoutes>
         </Switch>
     </Router>
 );
