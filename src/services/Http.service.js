@@ -1,3 +1,12 @@
+const {
+    REACT_APP_BACKEND_PROTOCOL,
+    REACT_APP_BACKEND_PORT,
+    REACT_APP_BACKEND_DOMAIN
+} = process.env;
+const BACKEND_PORT = REACT_APP_BACKEND_PORT ? `:${REACT_APP_BACKEND_PORT}` : '';
+const BACKEND_PREFIX_URL = `${REACT_APP_BACKEND_PROTOCOL}://${REACT_APP_BACKEND_DOMAIN}${BACKEND_PORT}`;
+const ACTIVITIES_DOMAIN = 'api/activity';
+
 export default class HttpService {
     static requestHandler(
         url = '',
@@ -35,7 +44,7 @@ export default class HttpService {
 
     static getActivities(componentSignal) {
         return HttpService.requestHandler(
-            'https://bored-api.firebaseapp.com/api/activity/list',
+            `${BACKEND_PREFIX_URL}/${ACTIVITIES_DOMAIN}/list`,
             {},
             componentSignal
         );

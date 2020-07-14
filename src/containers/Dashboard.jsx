@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 // components
 import ProgressBar from '../components/ProgressBar/ProgressBar';
+import PGTable from '../components/PGTable/PGTable';
 
 // reducer methods
 import initDashBoard from '../ducks/Dashboard/methods/InitDashboard';
@@ -17,7 +18,7 @@ import '../styles/Dashboard.scss';
 
 const ComponentSignal = new EventEmitter();
 
-const Dashboard = ({ initDashBoard }) => {
+const Dashboard = ({ initDashBoard, activities }) => {
     const [ isLoading, setLoadingState ] = React.useState(false);
 
     React.useEffect(
@@ -50,7 +51,9 @@ const Dashboard = ({ initDashBoard }) => {
     if (isLoading) return <ProgressBar />;
 
     return (
-        <></>
+        <div className="pg-dashboard-container">
+            <PGTable activities={activities}/>
+        </div>
     );
 };
 
