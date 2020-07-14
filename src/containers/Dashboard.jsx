@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 // components
 import ProgressBar from '../components/ProgressBar/ProgressBar';
 import PGTable from '../components/PGTable/PGTable';
+import ActivitiesRouter from '../routers/Activities.router';
 
 // reducer methods
 import initDashBoard from '../ducks/Dashboard/methods/InitDashboard';
@@ -51,9 +52,12 @@ const Dashboard = ({ initDashBoard, activities }) => {
     if (isLoading) return <ProgressBar />;
 
     return (
-        <div className="pg-dashboard-container">
-            <PGTable activities={activities}/>
-        </div>
+        <>
+            <div className="pg-dashboard-container">
+                <PGTable activities={activities}/>
+            </div>
+            <ActivitiesRouter/>
+        </>
     );
 };
 

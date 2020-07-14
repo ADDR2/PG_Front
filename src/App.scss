@@ -1,5 +1,6 @@
 .pg-app-container {
     overflow: hidden;
+    position: relative;
 
     & .Toastify__toast {
         padding: 12px;

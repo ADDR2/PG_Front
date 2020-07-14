@@ -4,22 +4,12 @@ import { connect } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// components
-import AppHeader from './components/AppHeader/AppHeader';
-
-// helpers
-import { HEADER_OPTIONS } from './constants';
-
-// images
-import Logo from './assets/app-logo.png';
-
 // styles
 import './App.scss';
 
 const App = () => {
     return (
         <div className="pg-app-container">
-            <AppHeader Logo={Logo} options={HEADER_OPTIONS}/>
             <MainRouter />
             <ToastContainer
                 position="bottom-right"
