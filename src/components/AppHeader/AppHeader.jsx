@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 // components
 import IconButton from '@material-ui/core/IconButton';
@@ -7,30 +8,25 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import HamburguerMenu from '@material-ui/icons/Menu';
 
-// services
-import NavigationService from '../../services/Navigation.service';
-
 // styles
 import './AppHeader.scss';
 
 const AppHeader = ({ Logo, options, className = '', style = {} }) => {
     const [ anchorEl, setAnchorEl ] = React.useState(null);
 
-    function navigate({ search }) {
-        NavigationService.navigate(search);
-        setAnchorEl(null);
-    }
-
     return (
         <div
             className={`pg-app-header ${className}`}
             style={style}
         >
-            <img
-                alt="App Logo"
-                className="pg-app-logo"
-                src={Logo}
-            />
+            <Link to="/">
+                <img
+                    alt="App Logo"
+                    className="pg-app-logo"
+                    src={Logo}
+                />
+            </Link>
+            
 
             <IconButton
                 aria-label="more"
@@ -52,9 +48,12 @@ const AppHeader = ({ Logo, options, className = '', style = {} }) => {
                 { options.map(option => (
                     <MenuItem
                         key={option.name}
-                        onClick={() => navigate(option)}
+                        onClick={() => setAnchorEl(null)}
                     >
-                        { option.name }
+                        <Link
+                            className="app-menu-link"
+                            to={option.route}
+                        >{ option.name }</Link>
                     </MenuItem>
                 ))}
             </Menu>
@@ -67,7 +66,7 @@ AppHeader.propTypes = {
     options: PropTypes.arrayOf(
         PropTypes.shape({
             name: PropTypes.string.isRequired,
-            search: PropTypes.object.isRequired
+            route: PropTypes.string.isRequired
         })
     ).isRequired,
     className: PropTypes.string,

@@ -2,6 +2,9 @@ import React from 'react';
 import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import Checkbox from '@material-ui/core/Checkbox';
+import Star from '@material-ui/icons/Star';
+import StarBorder from '@material-ui/icons/StarBorder';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import Clear from '@material-ui/icons/Clear';
@@ -24,7 +27,7 @@ const tableIcons = {
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />)
 };
 
-const PGTable = ({ activities, className = '', style = {} }) => {
+const PGTable = ({ activities, onChecked, className = '', style = {} }) => {
     return (
         <MaterialTable
             title="Activities"
@@ -47,7 +50,23 @@ const PGTable = ({ activities, className = '', style = {} }) => {
                 },
                 { title: 'Name', field: 'name' },
                 { title: 'Price', field: 'price', type: 'numeric' },
+                { title: 'Accessibility', field: 'accessibility', type: 'numeric' },
                 { title: 'Type', field: 'type' },
+                {
+                    title: '',
+                    field: 'isFavorite',
+                    type: 'boolean',
+                    searchable: false,
+                    render: ({ isFavorite, id }) => (
+                        <Checkbox
+                            icon={<StarBorder />}
+                            checkedIcon={<Star />}
+                            checked={isFavorite}
+                            color="primary"
+                            onClick={() => onChecked(id, !isFavorite)}
+                        />
+                    )
+                }
             ]}
             data={activities}        
             options={{
@@ -64,12 +83,14 @@ const PGTable = ({ activities, className = '', style = {} }) => {
 PGTable.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
+    onChecked: PropTypes.func.isRequired,
     activities: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
             image: PropTypes.string,
             price: PropTypes.number,
+            accessibility: PropTypes.number,
             type: PropTypes.string
         })
     ).isRequired

@@ -6,9 +6,11 @@ import { toast } from 'react-toastify';
 // components
 import ProgressBar from '../components/ProgressBar/ProgressBar';
 import PGTable from '../components/PGTable/PGTable';
+import ActivitiesRouter from '../routers/Activities.router';
 
 // reducer methods
 import initDashBoard from '../ducks/Dashboard/methods/InitDashboard';
+import ChangeFavorite from '../ducks/Dashboard/methods/ChangeFavorite';
 
 // constants
 import { USER_FEEDBACK } from '../constants';
@@ -18,7 +20,7 @@ import '../styles/Dashboard.scss';
 
 const ComponentSignal = new EventEmitter();
 
-const Dashboard = ({ initDashBoard, activities }) => {
+const Dashboard = ({ initDashBoard, ChangeFavorite, activities }) => {
     const [ isLoading, setLoadingState ] = React.useState(false);
 
     React.useEffect(
@@ -37,7 +39,7 @@ const Dashboard = ({ initDashBoard, activities }) => {
                     console.warn(error);
                     toast.error(USER_FEEDBACK.UNEXPECTED_ERROR);
                 })
-                .finally(() => setLoadingState(false))
+                .finally(() => stillMounted && setLoadingState(false))
             ;
 
             return () => {
@@ -48,16 +50,35 @@ const Dashboard = ({ initDashBoard, activities }) => {
         [ initDashBoard ]
     );
 
+    async function onItemChecked(id, isFavorite) {
+        const errorMessage = isFavorite ? USER_FEEDBACK.ADD_FAVORITE_ERROR : USER_FEEDBACK.REMOVE_FAVORITE_ERROR;
+
+        try {
+            const result = await ChangeFavorite(id, isFavorite);
+
+            !result && toast.error(errorMessage);
+        } catch(error) {
+            console.warn(error);
+            toast.error(errorMessage);
+        }
+    }
+
     if (isLoading) return <ProgressBar />;
 
     return (
-        <div className="pg-dashboard-container">
-            <PGTable activities={activities}/>
-        </div>
+        <>
+            <div className="pg-dashboard-container">
+                <PGTable
+                    activities={activities}
+                    onChecked={onItemChecked}
+                />
+            </div>
+            <ActivitiesRouter/>
+        </>
     );
 };
 
 const mS = ({ DashBoard }) => ({ ...DashBoard });
-const mD = { initDashBoard };
+const mD = { initDashBoard, ChangeFavorite };
 
 export default connect(mS, mD)(Dashboard);

@@ -4,10 +4,12 @@ import thunk from 'redux-thunk';
 
 // ducks
 import DashBoard from '../ducks/Dashboard/Dashboard.reducer';
+import Favorites from '../ducks/Favorites/Favorites.reducer';
 
 export const configure = (initialState = {}) => {
 	const reducer = redux.combineReducers({
-        DashBoard
+        DashBoard,
+        Favorites
     });
 
 	const store = redux.createStore(
