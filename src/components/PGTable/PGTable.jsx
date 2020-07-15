@@ -50,6 +50,7 @@ const PGTable = ({ activities, onChecked, className = '', style = {} }) => {
                 },
                 { title: 'Name', field: 'name' },
                 { title: 'Price', field: 'price', type: 'numeric' },
+                { title: 'Accessibility', field: 'accessibility', type: 'numeric' },
                 { title: 'Type', field: 'type' },
                 {
                     title: '',
@@ -89,6 +90,7 @@ PGTable.propTypes = {
             name: PropTypes.string.isRequired,
             image: PropTypes.string,
             price: PropTypes.number,
+            accessibility: PropTypes.number,
             type: PropTypes.string
         })
     ).isRequired

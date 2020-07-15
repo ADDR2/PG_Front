@@ -6,7 +6,7 @@
     align-items: center;
 
     & > .pg-side-panel-close-button {
-        margin: 0 1rem 0 0;
+        margin: 0;
         width: 50px;
         height: 50px;
 
@@ -22,15 +22,16 @@
 }
 
 .pg-side-panel-container {
-    padding: 30px;
+    padding: 10px 20px;
     position: absolute;
     display: flex;
     flex-direction: column;
     top: 0;
     left: 20vw;
-    height: 100vh;
-    width: 80vw;
+    height: calc(100vh - 20px);
+    width: calc(80vw - 40px);
     z-index: 31;
+    overflow-y: auto;
     background-color: $app-conttent-background-color;
     animation-name: showPanel;
     animation-duration: 0.7s;
@@ -84,4 +85,16 @@
 @keyframes closePanel {
     from   { left: 20vw; }
     to     { left: 100vw; }
+}
+
+@media screen and (min-width: 768px) {
+    .pg-side-panel-header > .pg-side-panel-close-button {
+        margin: 0 1rem 0 0;
+    }
+
+    .pg-side-panel-container {
+        padding: 30px;
+        height: calc(100vh - 60px);
+        width: calc(80vw - 60px);
+    }
 }

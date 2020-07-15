@@ -42,7 +42,7 @@ const SidePanel = ({ children, title, afterCloseRoute }) => {
                     >
                         <ArrowForward className="pg-side-panel-close-icon" />
                     </IconButton>
-                    <h2 className="pg-side-panel-title">{ title }</h2>
+                    <h3 className="pg-side-panel-title">{ title }</h3>
                 </div>
                 { children }
             </div>

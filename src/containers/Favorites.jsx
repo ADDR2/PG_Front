@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 // components
 import ProgressSpinner from '../components/ProgressSpinner/ProgressSpinner';
 import SidePanel from '../components/SidePanel/SidePanel';
+import ThumbnailList from '../components/Thumbnail/ThumbnailList';
 
 // reducer methods
 import initFavorites from '../ducks/Favorites/methods/initFavorites';
@@ -34,7 +35,7 @@ const Favorites = ({ initFavorites, favoriteActivities }) => {
                     console.warn(error);
                     toast.error(USER_FEEDBACK.UNEXPECTED_ERROR);
                 })
-                .finally(() => setLoadingState(false))
+                .finally(() => stillMounted && setLoadingState(false))
             ;
 
             return () => {
@@ -51,7 +52,7 @@ const Favorites = ({ initFavorites, favoriteActivities }) => {
         >
             { isLoading
                 ? <ProgressSpinner size={100} className="pg-favorites-loader" />
-                : <></>
+                : <ThumbnailList activities={favoriteActivities} />
             }
         </SidePanel>
     );

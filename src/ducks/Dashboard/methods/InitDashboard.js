@@ -16,6 +16,7 @@ export default componentSignal => async dispatch => {
             name: item.activity,
             image: item.imageUrl,
             price: item.price,
+            accessibility: item.accessibility,
             type: item.type,
             isFavorite: favorites.includes(item.id)
         }));

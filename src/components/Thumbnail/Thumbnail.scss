@@ -1,0 +1,59 @@
+@import '../../styles/colors';
+$border-radius: 4px;
+
+.pg-thumbnail-image {
+    width: inherit;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+}
+
+.pg-thumbnail {
+    width: 100%;
+    box-shadow: 1px 1px 5px $app-dark-color;
+    border-radius: $border-radius;
+
+    &:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+}
+
+.pg-thumbnail-info {
+    padding: 5px 10px;
+}
+
+.info-name {
+    margin: 0 0 0.5rem 0;
+    font-size: 14px;
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $app-dark-color;
+}
+
+.info-type {
+    margin: 0 0 0.5rem 0;
+}
+
+.info-access {
+    margin: 0 0 0.5rem 0;
+}
+
+.info-price {
+    margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .pg-thumbnail {
+        margin: 0 4rem 1rem 0;
+        width: 200px;
+
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .info-name, .info-type, .info-access, .info-price {
+        font-size: 16px;
+    }
+}

@@ -39,7 +39,7 @@ const Dashboard = ({ initDashBoard, ChangeFavorite, activities }) => {
                     console.warn(error);
                     toast.error(USER_FEEDBACK.UNEXPECTED_ERROR);
                 })
-                .finally(() => setLoadingState(false))
+                .finally(() => stillMounted && setLoadingState(false))
             ;
 
             return () => {
