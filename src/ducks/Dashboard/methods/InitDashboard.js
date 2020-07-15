@@ -2,22 +2,23 @@ import { update } from '../Dashboard.reducer';
 
 // services
 import HttpService from '../../../services/Http.service';
+import CacheService from '../../../services/Cache.service';
 
 export default componentSignal => async dispatch => {
     try {
         const result = await HttpService.getActivities(componentSignal);
         if (result && result.aborted) return { aborted: true };
 
-        const mappedActivities = result.map(item => {
+        const favorites = await CacheService.getFavorites();
 
-            return {
-                id: item.id,
-                name: item.activity,
-                image: item.imageUrl,
-                price: item.price,
-                type: item.type
-            };
-        });
+        const mappedActivities = result.map(item => ({
+            id: item.id,
+            name: item.activity,
+            image: item.imageUrl,
+            price: item.price,
+            type: item.type,
+            isFavorite: favorites.includes(item.id)
+        }));
 
         dispatch(update({ activities: mappedActivities }));
 
