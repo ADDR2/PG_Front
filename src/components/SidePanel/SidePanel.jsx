@@ -24,7 +24,7 @@ const SidePanel = ({ children, title, afterCloseRoute }) => {
 
         setTimeout(
             () => history.replace(afterCloseRoute),
-            1000
+            800
         );
     }
 

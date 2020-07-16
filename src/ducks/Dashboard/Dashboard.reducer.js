@@ -26,7 +26,8 @@ export const clear = () => {
   
 
 const initialState = {
-    activities: []
+    activities: [],
+    differentTypes: []
 };
 
 export default (state = initialState, action) => {

@@ -13,18 +13,23 @@ export default componentSignal => async dispatch => {
         if (!localActivities) throw new Error('Could not load local activities');
 
         const favorites = await CacheService.getFavorites();
+        const types = [];
 
-        const mappedActivities = [ ...result, ...localActivities ].map(item => ({
-            id: item.id,
-            name: item.activity,
-            image: item.imageUrl,
-            price: item.price,
-            accessibility: item.accessibility,
-            type: item.type,
-            isFavorite: favorites.includes(item.id)
-        }));
+        const mappedActivities = [ ...result, ...localActivities ].map(item => {
+            types.push(item.type);
 
-        dispatch(update({ activities: mappedActivities }));
+            return {
+                id: item.id,
+                name: item.activity,
+                image: item.imageUrl,
+                price: item.price,
+                accessibility: item.accessibility,
+                type: item.type,
+                isFavorite: favorites.includes(item.id)
+            };
+        });
+
+        dispatch(update({ activities: mappedActivities, differentTypes: Array.from(new Set( types )) }));
 
         return { loaded: true, size: mappedActivities.length };
     } catch(error) {

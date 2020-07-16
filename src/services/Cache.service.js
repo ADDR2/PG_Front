@@ -70,15 +70,17 @@ export default class CacheService {
     static async addLocalActivity(activity = {}) {
         try {
             const localActivities = localStorage.getItem('local_activities');
-            const newId = `local-${localActivities.length}`;
-            const newActivity = { ...activity, id: newId };
+            let newActivity = null;
 
             if (localActivities) {
                 const activities = JSON.parse(localActivities);
+                const newId = `local-${activities.length}`;
+                newActivity = { ...activity, id: newId };
                 activities.push(newActivity);
 
                 localStorage.setItem('local_activities', JSON.stringify(activities));
             } else {
+                newActivity = { ...activity, id: 'local-0' };
                 localStorage.setItem('local_activities', JSON.stringify([ newActivity ]));
             }
 

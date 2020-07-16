@@ -9,10 +9,20 @@ export default activity => async (dispatch, getState) => {
         const result = await CacheService.addLocalActivity(activity);
         if (!result) throw new Error('Could not create local activity');
 
+        const parsedActivity = {
+            id: result.id,
+            name: result.activity,
+            image: result.imageUrl,
+            price: result.price,
+            accessibility: result.accessibility,
+            type: result.type,
+            isFavorite: false
+        };
+
         const { DashBoard: { activities } } = getState();
         const updatedActivities = update(
             activities,
-            { $push: [result] }
+            { $push: [parsedActivity] }
         );
 
         dispatch(updateState({ activities: updatedActivities }));
