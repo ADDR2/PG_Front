@@ -9,9 +9,12 @@ export default componentSignal => async dispatch => {
         const result = await HttpService.getActivities(componentSignal);
         if (result && result.aborted) return { aborted: true };
 
+        const localActivities = await CacheService.getLocalActivities();
+        if (!localActivities) throw new Error('Could not load local activities');
+
         const favorites = await CacheService.getFavorites();
 
-        const mappedActivities = result.map(item => ({
+        const mappedActivities = [ ...result, ...localActivities ].map(item => ({
             id: item.id,
             name: item.activity,
             image: item.imageUrl,

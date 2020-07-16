@@ -7,8 +7,14 @@ export default () => async (dispatch, getState) => {
     try {
         const favorites = await CacheService.getFavorites();
         const { DashBoard: { activities } } = getState();
+        const favoriteIds = {};
 
-        const mappedFavorites = activities.filter(({ id }) => favorites.includes(id));
+        const mappedFavorites = activities.filter(({ id }) => {
+            if (id in favoriteIds) return false;
+            
+            favoriteIds[id] = true;
+            return favorites.includes(id);
+        });
 
         dispatch(update({ favoriteActivities: mappedFavorites }));
 
