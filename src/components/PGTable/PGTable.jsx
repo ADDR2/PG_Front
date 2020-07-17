@@ -57,13 +57,13 @@ const PGTable = ({ activities, onChecked, className = '', style = {} }) => {
                     field: 'isFavorite',
                     type: 'boolean',
                     searchable: false,
-                    render: ({ isFavorite, id }) => (
+                    render: ({ isFavorite, id, ...otherKeys }) => (
                         <Checkbox
                             icon={<StarBorder />}
                             checkedIcon={<Star />}
                             checked={isFavorite}
                             color="primary"
-                            onClick={() => onChecked(id, !isFavorite)}
+                            onClick={() => onChecked(id, !isFavorite, otherKeys)}
                         />
                     )
                 }

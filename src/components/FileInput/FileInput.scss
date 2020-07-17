@@ -1,0 +1,31 @@
+@import '../../styles/colors';
+
+.pg-file-input {
+    padding: 18px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed $app-dark-color;
+    border-radius: 4px;
+    outline: none;
+    user-select: none;
+    cursor: pointer;
+
+    &:active {
+        background-color: $app-light-color;
+    }
+
+    & > .message {
+        margin: 0;
+        font-size: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .pg-file-input {
+        width: calc(400px - 64px + 4rem);
+    }
+}

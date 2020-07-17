@@ -5,7 +5,9 @@ export default class CacheService {
 
             if (result) {
                 const currentFavorites = JSON.parse(result);
-                !currentFavorites.includes(favoriteId) && localStorage.setItem(
+                if (currentFavorites.includes(favoriteId)) return { duplicated: true };
+
+                localStorage.setItem(
                     'favorites',
                     JSON.stringify([ ...currentFavorites, favoriteId ])
                 );
@@ -16,10 +18,10 @@ export default class CacheService {
                 );
             }
 
-            return true;
+            return { duplicated: false };
         } catch(error) {
             console.warn(error);
-            return false;
+            return { error: true };
         }
     }
 
@@ -46,16 +48,52 @@ export default class CacheService {
                 throw new Error('Could not find id');
             }
 
-            return true;
+            return { error: false };
         } catch(error) {
             console.warn(error);
-            return false;
+            return { error: true };
         }
     }
 
     static async getFavorites() {
         try {
             const result = localStorage.getItem('favorites');
+            if (result) return JSON.parse(result);
+
+            return [];
+        } catch(error) {
+            console.warn(error);
+            return false;
+        }
+    }
+
+    static async addLocalActivity(activity = {}) {
+        try {
+            const localActivities = localStorage.getItem('local_activities');
+            let newActivity = null;
+
+            if (localActivities) {
+                const activities = JSON.parse(localActivities);
+                const newId = `local-${activities.length}`;
+                newActivity = { ...activity, id: newId };
+                activities.push(newActivity);
+
+                localStorage.setItem('local_activities', JSON.stringify(activities));
+            } else {
+                newActivity = { ...activity, id: 'local-0' };
+                localStorage.setItem('local_activities', JSON.stringify([ newActivity ]));
+            }
+
+            return newActivity;
+        } catch(error) {
+            console.warn(error);
+            return false;
+        }
+    }
+
+    static async getLocalActivities() {
+        try {
+            const result = localStorage.getItem('local_activities');
             if (result) return JSON.parse(result);
 
             return [];

@@ -50,13 +50,14 @@ const Dashboard = ({ initDashBoard, ChangeFavorite, activities }) => {
         [ initDashBoard ]
     );
 
-    async function onItemChecked(id, isFavorite) {
+    async function onItemChecked(id, isFavorite, itemsOtherKeys) {
         const errorMessage = isFavorite ? USER_FEEDBACK.ADD_FAVORITE_ERROR : USER_FEEDBACK.REMOVE_FAVORITE_ERROR;
 
         try {
-            const result = await ChangeFavorite(id, isFavorite);
+            const { error, duplicated } = await ChangeFavorite(id, isFavorite, itemsOtherKeys);
 
-            !result && toast.error(errorMessage);
+            error && toast.error(errorMessage);
+            duplicated && toast.error(USER_FEEDBACK.DUPLICATE_FOUND);
         } catch(error) {
             console.warn(error);
             toast.error(errorMessage);

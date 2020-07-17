@@ -8,7 +8,7 @@ import SidePanel from '../components/SidePanel/SidePanel';
 import ThumbnailList from '../components/Thumbnail/ThumbnailList';
 
 // reducer methods
-import initFavorites from '../ducks/Favorites/methods/initFavorites';
+import InitFavorites from '../ducks/Favorites/methods/InitFavorites';
 
 // constants
 import { USER_FEEDBACK } from '../constants';
@@ -16,7 +16,7 @@ import { USER_FEEDBACK } from '../constants';
 // styles
 import '../styles/Favorites.scss';
 
-const Favorites = ({ initFavorites, favoriteActivities }) => {
+const Favorites = ({ InitFavorites, favoriteActivities }) => {
     const [ isLoading, setLoadingState ] = React.useState(false);
 
     React.useEffect(
@@ -24,7 +24,7 @@ const Favorites = ({ initFavorites, favoriteActivities }) => {
             let stillMounted = true;
             setLoadingState(true);
 
-            initFavorites()
+            InitFavorites()
                 .then(({ error, loaded, size }) => {
                     if (!stillMounted) return;
 
@@ -42,7 +42,7 @@ const Favorites = ({ initFavorites, favoriteActivities }) => {
                 stillMounted = false;
             };
         },
-        [ initFavorites ]
+        [ InitFavorites ]
     );
 
     return (
@@ -59,6 +59,6 @@ const Favorites = ({ initFavorites, favoriteActivities }) => {
 };
 
 const mS = ({ Favorites }) => ({ ...Favorites });
-const mD = { initFavorites };
+const mD = { InitFavorites };
 
 export default connect(mS, mD)(Favorites);
