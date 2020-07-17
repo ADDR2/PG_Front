@@ -11,5 +11,6 @@ export const USER_FEEDBACK = {
     SAVED_INFO: 'Your activity was created :).',
     ADD_FAVORITE_ERROR: 'Error adding favorite activity. Please try again later or contact support.',
     REMOVE_FAVORITE_ERROR: 'Error removing favorite activity. Please try again later or contact support.',
-    DUPLICATE_FOUND: "Oh! Seems like you have found some duplicated id's."
+    DUPLICATE_FOUND: "Oh! Seems like you have found some duplicated id's.",
+    REJECTED_FILE: "Sorry, but I cannot load your file :/. Can you try with another one?"
 };

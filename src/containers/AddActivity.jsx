@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 // components
 import ProgressSpinner from '../components/ProgressSpinner/ProgressSpinner';
 import SidePanel from '../components/SidePanel/SidePanel';
+import FileInput from '../components/FileInput/FileInput';
 
 // reducer methods
 import CreateActivity from '../ducks/Dashboard/methods/CreateActivity';
@@ -21,6 +22,7 @@ import '../styles/AddActivity.scss';
 
 const Favorites = ({ CreateActivity, differentTypes }) => {
     const [ isSaving, changeSavingState ] = React.useState(false);
+    const [ currentFile, changeFile ] = React.useState(null);
     const [ state, changeState ] = React.useState({
         activity: '',
         price: 0,
@@ -50,6 +52,14 @@ const Favorites = ({ CreateActivity, differentTypes }) => {
             toast.error(USER_FEEDBACK.UNEXPECTED_ERROR);
             changeSavingState(false);
         }
+    }
+
+    function onDrop(file) {
+        changeFile(file);
+    }
+
+    function onRejected() {
+        toast.error(USER_FEEDBACK.REJECTED_FILE);
     }
 
     function changeSingleInput(inputKey, numeric, { target: { value } }) {
@@ -82,7 +92,7 @@ const Favorites = ({ CreateActivity, differentTypes }) => {
                     label="Price"
                     variant="outlined"
                     type="number"
-                    inputProps={{ step: "0.01" }}
+                    inputProps={{ step: "0.01", min: "0" }}
                     value={state.price}
                     onChange={changeSingleInput.bind({}, 'price', true)}
                     InputProps={{
@@ -96,7 +106,7 @@ const Favorites = ({ CreateActivity, differentTypes }) => {
                     label="Accessibility"
                     variant="outlined"
                     type="number"
-                    inputProps={{ step: "0.1" }}
+                    inputProps={{ step: "0.1", min: "0" }}
                     value={state.accessibility}
                     onChange={changeSingleInput.bind({}, 'accessibility', true)}
                 />
@@ -118,6 +128,12 @@ const Favorites = ({ CreateActivity, differentTypes }) => {
                         ))
                     }
                 </TextField>
+
+                <FileInput
+                    onDrop={onDrop}
+                    onRejected={onRejected}
+                    fileName={currentFile ? currentFile.name : ''}
+                />
 
                 <div className="pg-add-button-container">
                     <button
