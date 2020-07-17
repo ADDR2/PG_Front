@@ -1,0 +1,15 @@
+@import './colors';
+
+.pg-not-found-container {
+    width: 100%;
+    height: calc(100vh - 70px - 4rem);
+    display: flex;
+    justify-content: center;
+    padding: 4rem 0 0 0;
+    background-color: $app-conttent-background-color;
+}
+
+.pg-not-found {
+    margin: 0;
+    color: $app-light-color;
+}
