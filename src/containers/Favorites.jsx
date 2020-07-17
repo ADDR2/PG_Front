@@ -8,7 +8,7 @@ import SidePanel from '../components/SidePanel/SidePanel';
 import ThumbnailList from '../components/Thumbnail/ThumbnailList';
 
 // reducer methods
-import InitFavorites from '../ducks/Favorites/methods/InitFavorites';
+import InitFavorites from '../ducks/Favorites/methods/InitFavorite';
 
 // constants
 import { USER_FEEDBACK } from '../constants';
